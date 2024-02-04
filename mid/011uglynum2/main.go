@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 /*
 给你一个整数 n ，请你找出并返回第 n 个 丑数 。
 
@@ -23,6 +25,34 @@ func nthUglyNumber(n int) int {
 	if n <= 6 {
 		return n
 	}
+	tempSlice := make([]int, n)
+	flag2 := 0
+	flag3 := 0
+	flag5 := 0
+	tempSlice[0] = 1
 
+	for i := 1; i < n; i++ {
+		temp2 := tempSlice[flag2] * 2
+		temp3 := tempSlice[flag3] * 3
+		temp5 := tempSlice[flag5] * 5
+		fmt.Println(temp2, temp3, temp5)
+		if temp2 <= temp3 && temp2 <= temp5 {
+			tempSlice[i] = temp2
+			flag2++
+		}
+		if temp3 <= temp2 && temp3 <= temp5 {
+			tempSlice[i] = temp3
+			flag3++
+		}
+		if temp5 <= temp3 && temp5 <= temp2 {
+			tempSlice[i] = temp5
+			flag5++
+		}
+		fmt.Println(tempSlice)
+	}
+	return tempSlice[n-1]
+}
 
+func main(){
+	nthUglyNumber(10)
 }
